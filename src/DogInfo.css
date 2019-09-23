@@ -1,0 +1,30 @@
+.card {
+    margin:auto;
+    margin-top: 15vh;
+    justify-self: center;
+    width: 18rem;
+    align-self: center;
+    background-color: #343a40;
+    color: white;
+}
+
+.card-body {
+    background: #343a40;
+    color: white;
+}
+.list-group {
+    float: right;
+}
+.list-group-item{
+    background-color: #343a40;
+    color: white;
+}
+.back-link{
+    color: lightblue;
+}
+.back-link:hover{
+    color: white;
+}
+.left {
+    float: left;
+}

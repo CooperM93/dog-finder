@@ -1,0 +1,17 @@
+.BubbleImg {
+    border-radius: 50%;
+}
+.Bubble img{
+    margin: 5px;
+    width: 150px;
+    height: 150px;
+}
+.Bubble {
+    margin: 0px;
+}
+.BubbleTitle {
+    color: white;
+    letter-spacing: -2px;
+    text-align: center;
+    margin: auto;
+}

@@ -1,26 +1,162 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import NavBar from './NavBar';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Dogs from './Dogs';
+import DogInfo from './DogInfo';
+import axios from 'axios';
+import Querystring from 'querystring';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+        dogs: [],
+        loading: false,
+        locations: 94707,
+        authorization: '',
+    };
+
+    this.dogGetter = this.dogGetter.bind(this);
+    this.apiAuth = this.apiAuth.bind(this);
+  }
+  static defaultProps = {
+      dogs: [
+          {
+              name: "Spot",
+              age: 1,
+              src: 'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2018/01/12201051/cute-puppy-body-image.jpg',
+              facts: [
+                  "Loves to run!",
+                  "Very cuddly",
+                  "Always smiling"
+              ]
+          },
+          {
+              name: "Rover",
+              age: 3,
+              src: 'https://cdn.editorchoice.com/wp-content/uploads/2019/06/dogtilt.jpg',
+              facts: [
+                  "Loves to jump!",
+                  "Independent",
+                  "Sad when alone"
+              ]
+          }
+      ],
+      dogNum: 12
+  }
+  componentDidMount() {
+    this.state.dogs && this.setState({loading: true});
+    this.apiAuth().then(this.dogGetter);
+  }
+  async apiAuth() {
+    const apiAuth_data = {
+        grant_type: 'client_credentials',
+        client_id: 'tNAak61YIaJoFRcMA81dwb72M9ipGN6oxAW5aWeCzf0zfI5eGK',
+        client_secret: 'C4TTi4FvKYy0q2nMJ7hJMbLCzeC9aebTjvRtg2SC'
+    }
+    await axios.post('https://api.petfinder.com/v2/oauth2/token', Querystring.stringify(apiAuth_data))
+        .then(response => {
+            console.log(response.data);
+            this.setState({authorization: 'Bearer ' + response.data.access_token})
+            console.log('userresponse' + response.data.access_token);
+        })
+        .catch((e) => {
+            console.log('error' + e);
+        });
+  }
+  async dogGetter() {
+      try{ 
+          /*let response = await axios.get("https://api.petfinder.com/v2/animals?limit=100&type=dog&page=1", {
+              headers: { Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVkOWMzZTBmZjRmM2M3ZjU0NGE5M2YwNmM0OWRjYWQ1OTEzOTY5NWIxYjY1OTM0NzUxZDc3ZWEwMTYxODkxYWJhMTAzMDNiNTAzYjBmZDliIn0.eyJhdWQiOiJ0TkFhazYxWUlhSm9GUmNNQTgxZHdiNzJNOWlwR042b3hBVzVhV2VDemYwemZJNWVHSyIsImp0aSI6IjVkOWMzZTBmZjRmM2M3ZjU0NGE5M2YwNmM0OWRjYWQ1OTEzOTY5NWIxYjY1OTM0NzUxZDc3ZWEwMTYxODkxYWJhMTAzMDNiNTAzYjBmZDliIiwiaWF0IjoxNTY4NzU3MDAwLCJuYmYiOjE1Njg3NTcwMDAsImV4cCI6MTU2ODc2MDYwMCwic3ViIjoiIiwic2NvcGVzIjpbXX0.xKE6No3CfrIh0OauNuCMqjYUE2zzHqlFb0PJHf9_u4KlJ17Yj4ioiY_sZrnbADekpMzSkvGL-zskDhrPhQVCmXxrsKg550Wj9TVVICrQSVaMSWeaIvs78m_Cawzhw52tOLRKeLUynyqEqHZMT8DxIDVzQGnYPRJI7r_1kdQaAAQhsfsaeLlKX0RhTbF8LkVPQzYzEyd0qZlYXPgWvElfDAkQ8OJGorYuAWBfi_eRmHQriJY4W3L81Ynh7L2E4DePBR6X3XJQTBScnTqAzfaT6KDdZaqCW8GbmVE0VyK5Nh5Q3jj7oEwzzo2yxT16sd7nNB9wpKODfLAKuJabKF1jEA" }
+          });*/
+          const dogGetter_data = {
+            headers: {
+              Authorization: this.state.authorization
+            },
+            params: {
+              type: 'dog',
+              location: this.state.location,
+              page: 1,
+              limit: 100
+            }
+          }
+          console.log(dogGetter_data);
+          let response = await axios.get('https://api.petfinder.com/v2/animals', {...dogGetter_data})
+          let dogs = []
+          let i = 2
+          while (dogs.length < this.props.dogNum) {
+            let lastanimal = response.data.animals[response.data.animals.length-1];
+            if(lastanimal.photos.length !== 0 ){
+              dogs.push(response.data.animals.pop());
+              console.log(dogs, 'dog array')
+              lastanimal = response.data.animals[response.data.animals.length-1];
+              continue
+            }            
+            else if(response.data.animals.length < 5){
+              let dogGetter_newData = {
+                headers: {
+                  Authorization: this.state.authorization
+                },
+                params: {
+                  type: 'dog',
+                  location: this.state.location,
+                  page: i,
+                  limit: 100
+                }
+              }
+              let response = await axios.get('https://api.petfinder.com/v2/animals', {...dogGetter_newData});
+              i++;
+              console.log(i, 'response size too small');
+              lastanimal = response.data.animals[response.data.animals.length-1];
+              continue
+            }
+            else if(i > 5){
+              break;
+            }
+            else{
+              console.log(lastanimal.photos.length, 'failed photo length')
+              response.data.animals.pop();
+              lastanimal = response.data.animals[response.data.animals.length-1];
+              continue
+            }
+          }
+          this.setState(
+              st => ({
+                  dogs: dogs,
+                  loading: false
+              })
+          )
+      } catch (e) {
+          alert(e);
+          this.setState({loading: false});
+      } 
+  }
+  render() {
+    const getDog  = props => {
+      let name = props.match.params.name;
+      let currentDog = this.state.dogs.find(
+        dog => dog.name.toLowerCase() === name.toLowerCase()
+      );
+      return <DogInfo {...props} dog={currentDog}/>
+    }
+    return (
+      <div className="App">
+        <NavBar dogs={this.state.dogs} />
+        <Switch>
+          <Route
+            exact path='/dog/:name'
+            render={getDog}
+          />
+          <Route
+            exact path='/'
+            render={() => <Dogs loading={this.state.loading} dogs={this.state.dogs}></Dogs>}
+          />
+          <Redirect to="/" />
+        </ Switch>
+      </div>
+    );
+  }
 }
 
 export default App;
