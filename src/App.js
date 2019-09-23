@@ -67,9 +67,6 @@ class App extends React.Component {
   }
   async dogGetter() {
       try{ 
-          /*let response = await axios.get("https://api.petfinder.com/v2/animals?limit=100&type=dog&page=1", {
-              headers: { Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVkOWMzZTBmZjRmM2M3ZjU0NGE5M2YwNmM0OWRjYWQ1OTEzOTY5NWIxYjY1OTM0NzUxZDc3ZWEwMTYxODkxYWJhMTAzMDNiNTAzYjBmZDliIn0.eyJhdWQiOiJ0TkFhazYxWUlhSm9GUmNNQTgxZHdiNzJNOWlwR042b3hBVzVhV2VDemYwemZJNWVHSyIsImp0aSI6IjVkOWMzZTBmZjRmM2M3ZjU0NGE5M2YwNmM0OWRjYWQ1OTEzOTY5NWIxYjY1OTM0NzUxZDc3ZWEwMTYxODkxYWJhMTAzMDNiNTAzYjBmZDliIiwiaWF0IjoxNTY4NzU3MDAwLCJuYmYiOjE1Njg3NTcwMDAsImV4cCI6MTU2ODc2MDYwMCwic3ViIjoiIiwic2NvcGVzIjpbXX0.xKE6No3CfrIh0OauNuCMqjYUE2zzHqlFb0PJHf9_u4KlJ17Yj4ioiY_sZrnbADekpMzSkvGL-zskDhrPhQVCmXxrsKg550Wj9TVVICrQSVaMSWeaIvs78m_Cawzhw52tOLRKeLUynyqEqHZMT8DxIDVzQGnYPRJI7r_1kdQaAAQhsfsaeLlKX0RhTbF8LkVPQzYzEyd0qZlYXPgWvElfDAkQ8OJGorYuAWBfi_eRmHQriJY4W3L81Ynh7L2E4DePBR6X3XJQTBScnTqAzfaT6KDdZaqCW8GbmVE0VyK5Nh5Q3jj7oEwzzo2yxT16sd7nNB9wpKODfLAKuJabKF1jEA" }
-          });*/
           const dogGetter_data = {
             headers: {
               Authorization: this.state.authorization
