@@ -6,7 +6,6 @@ class NavBar extends React.Component {
     render() {
         return(
             <nav className="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
-                <a className="navbar-brand" href="#">Dogs</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -19,11 +18,11 @@ class NavBar extends React.Component {
                             </a>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {this.props.dogs.map(d => (
-                                    <Link className="dropdown-item" exact to={`/dog/${d.name}`}>{d.name}</Link>
+                                    <Link className="dropdown-item" key={d.id} exact to={`/dog/${d.name}`}>{d.name}</Link>
                                 ))}
                             </div>
                         </li>
-                        <li class="nav-item nav-link"><Link className="nav-link" exact to='/'>Back</Link></li>
+                        <li className="nav-item nav-link"><Link className="nav-link" exact to='/'>Back</Link></li>
                     </ul>
                 </div>
           </nav>

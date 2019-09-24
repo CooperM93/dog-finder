@@ -13,12 +13,14 @@ class App extends React.Component {
     this.state = {
         dogs: [],
         loading: false,
-        locations: 94707,
+        location: 94707,
         authorization: '',
+        dogNum: 12
     };
 
     this.dogGetter = this.dogGetter.bind(this);
     this.apiAuth = this.apiAuth.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   static defaultProps = {
       dogs: [
@@ -42,11 +44,20 @@ class App extends React.Component {
                   "Sad when alone"
               ]
           }
-      ],
-      dogNum: 12
+      ]
   }
   componentDidMount() {
     this.state.dogs && this.setState({loading: true});
+    this.apiAuth().then(this.dogGetter);
+  }
+  handleSubmit(state) {
+    const regNum = new RegExp(/^-?\d+\.?\d*$/);
+    regNum.test(state.inputField) 
+    ? this.setState({ location: state.inputField, dogNum: state.dogNum })
+    : alert('Please enter valid Zipcode');
+    !regNum.test(this.state.location) && alert('Please enter a valid Zipcode')
+    console.log(state);
+    this.setState({loading: true});
     this.apiAuth().then(this.dogGetter);
   }
   async apiAuth() {
@@ -82,7 +93,7 @@ class App extends React.Component {
           let response = await axios.get('https://api.petfinder.com/v2/animals', {...dogGetter_data})
           let dogs = []
           let i = 2
-          while (dogs.length < this.props.dogNum) {
+          while (dogs.length < this.state.dogNum) {
             let lastanimal = response.data.animals[response.data.animals.length-1];
             if(lastanimal.photos.length !== 0 ){
               dogs.push(response.data.animals.pop());
@@ -147,7 +158,7 @@ class App extends React.Component {
           />
           <Route
             exact path='/'
-            render={() => <Dogs loading={this.state.loading} dogs={this.state.dogs}></Dogs>}
+            render={() => <Dogs location={this.state.location} handleSubmit={this.handleSubmit} loading={this.state.loading} dogs={this.state.dogs}></Dogs>}
           />
           <Redirect to="/" />
         </ Switch>

@@ -9,6 +9,15 @@
     color: white;
     padding: 20px;
 }
+.location-form{
+    margin-bottom: 50px;
+}
+.loc-form{
+    margin: 10px;
+}
+.submit{
+    max-width: 100px;
+}
 .Dogs-title{
     margin-bottom: 50px;
 }
