@@ -9,7 +9,8 @@ class Dogs extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleNumChange = this.handleNumChange.bind(this);
         this.state = {
-          inputField: ''
+          inputField: '',
+          dogNum: this.props.dogNum
         };
       }
     handleSubmit(e) {
@@ -45,12 +46,12 @@ class Dogs extends React.Component {
                     <h4 className="display-6 text-center">in {this.props.location}</h4>
                 </div>
                 <form onSubmit={this.handleSubmit} className="location-form">
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="formControlRange">Number of Results: {this.state.dogNum}</label>
-                        <input type="range" onChange={this.handleNumChange} class="form-control-range" min="2" max="24" id="formControlRange" />
-                        <div className="form-group row">
-                            <label for="location" className="loc-form col-md-2 col-form-label">Zipcode:</label>
-                            <div className="loc-form col-md-4">
+                        <input type="range" onChange={this.handleNumChange} className="form-control-range" min="2" max="48" id="formControlRange" />
+                        <div className="form-group row text-input">
+                            <label for="location" className="loc-form col-md-6 col-form-label">Zipcode:</label>
+                            <div className="loc-form col-md-6">
                                 <input
                                     value={this.state.inputField}
                                     onChange={this.handleChange}
@@ -59,11 +60,12 @@ class Dogs extends React.Component {
                                     name="location" 
                                     id="location" 
                                     aria-describedby="location" 
-                                    placeholder="Enter Location"
+                                    placeholder="Enter Zipcode"
+                                    defaultValue={this.props.location}
                                 />
                             </div>
-                            <button type="submit" className="loc-form submit btn btn-primary col-md-4">Submit</button>
                         </div>
+                        <button type="submit" className="loc-form submit btn btn-light col-md-8">Submit</button>
                     </div>
                 </form>
                 

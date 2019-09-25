@@ -158,7 +158,14 @@ class App extends React.Component {
           />
           <Route
             exact path='/'
-            render={() => <Dogs location={this.state.location} handleSubmit={this.handleSubmit} loading={this.state.loading} dogs={this.state.dogs}></Dogs>}
+            render={() => <Dogs 
+              location={this.state.location} 
+              handleSubmit={this.handleSubmit} 
+              loading={this.state.loading} 
+              dogs={this.state.dogs}
+              dogNum={this.state.dogNum}
+            >
+            </Dogs>}
           />
           <Redirect to="/" />
         </ Switch>

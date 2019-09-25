@@ -28,9 +28,9 @@ class DogInfo extends React.Component {
                             {dogProps.dog.size && <li className="list-group-item"><span className="left">Size:</span>{dogProps.dog.size}</li>}
                         </ul>
                     <div className="card-body">
-                        <Link className="btn btn-light" to='/'>Go Back</Link> 
+                        <Link className="btn btn-danger" to='/'>Go Back</Link> 
                         <a href={dogProps.dog.url}>
-                            <button className="btn btn-light">More Info</button>
+                            <button className="btn btn-info">More Info</button>
                         </a>
                     </div>
                 </div>

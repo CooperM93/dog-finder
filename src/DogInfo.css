@@ -12,6 +12,9 @@
     background: #343a40;
     color: white;
 }
+.card-body .btn {
+    margin: 10px;
+}
 .list-group {
     float: right;
 }

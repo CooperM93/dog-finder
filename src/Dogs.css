@@ -13,7 +13,14 @@
     margin-bottom: 50px;
 }
 .loc-form{
-    margin: 10px;
+    max-width: 200px;
+}
+.form-control-range{
+    max-width: 200px;
+    margin: auto;
+}
+.text-input {
+    margin-top: 25px;
 }
 .submit{
     max-width: 100px;
