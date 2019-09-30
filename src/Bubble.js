@@ -11,8 +11,8 @@ class Bubble extends React.Component {
         return(
             <div className="Bubble">
                 <Link to={`/dog/${this.props.dogData.name}`}>
-                    <h1 className="h5 display-5 BubbleTitle">{this.props.dogData.name}</h1>
-                    {<img className="BubbleImg" src={photo} alt={this.props.dogData.name}></img>}
+                    <h1 className="h5 display-5 underline">{this.props.dogData.name}</h1>
+                    <img className="BubbleImg" src={photo} alt={this.props.dogData.name} />
                 </Link>
             </div>
         )

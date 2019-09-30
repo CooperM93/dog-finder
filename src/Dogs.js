@@ -10,7 +10,7 @@ class Dogs extends React.Component {
         this.handleNumChange = this.handleNumChange.bind(this);
         this.state = {
           inputField: '',
-          dogNum: this.props.dogNum
+          dogNum: this.props.dog
         };
       }
     handleSubmit(e) {
@@ -72,7 +72,7 @@ class Dogs extends React.Component {
                 <div className="container">
                     <div className="row">
                         {this.props.dogs.map(d => (
-                            <div key={d.id} className="col-xl-4 col-lg-6  text-center">
+                            <div key={d.id} className="text-center">
                                 <Bubble dogData={d} photos={d.photos[0]} />
                             </div>
                         ))}

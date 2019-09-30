@@ -1,18 +1,30 @@
 .BubbleImg {
     border-radius: 50%;
 }
+a:hover {
+    text-decoration: none;
+}
 .Bubble img{
-    margin: 5px;
+    margin: 10px;
     width: 150px;
     height: 150px;
+    filter:none;
+    transition: 1s ease-in-out;
+    border: 4px rgba(0, 0, 0, 0) solid;
+}
+.Bubble:hover img {
+    transform: scale(1.1);
+    border: 4px rgba(255, 255, 255, 1) solid;
+}
+.underline {
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    display: block;
+    position: relative;
+    letter-spacing: -1px;
 }
 .Bubble {
-    margin: 0px;
-    margin-bottom: 10px;
-}
-.BubbleTitle {
-    color: white;
-    letter-spacing: -2px;
-    text-align: center;
-    margin: auto;
+    margin: 10px;
+    display: block;
 }
